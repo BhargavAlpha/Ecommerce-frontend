@@ -9,22 +9,16 @@ const Login = () => {
   const navigate=useNavigate();
   const handleLogin = async () => {
     try {
-      // Send a POST request to the login endpoint
       const response = await axios.post('http://localhost:3000/login', { email, password });
-
       console.log('User logged in:', response.data);
 
       // Assuming response.data contains userId and isAdmin information
       localStorage.setItem('email',response.data.email);
       localStorage.setItem('role', response.data.isAdmin ? 'admin' : 'teamMember');
+      localStorage.setItem('token', response.data.token);
       navigate('/dashboard');
-
-      // Redirect to another page or perform other actions upon successful login
-      // Example: history.push('/dashboard');
     } catch (error) {
       console.error('Error logging in:', error);
-      // Handle error (e.g., display an error message)
-      // Example: setError('Failed to log in. Please try again.');
     }
   };
 

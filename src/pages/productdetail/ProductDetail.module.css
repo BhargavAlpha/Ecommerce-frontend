@@ -45,6 +45,34 @@ textarea {
   height: 100%;
     width: 100%;
 }
+.btnContainer {
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background-color: #111;
+  width: 100%;
+}
+.approveBtn,
+.rejectBtn {
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.approveBtn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.rejectBtn {
+  background-color: #f44336;
+  color: white;
+}
 .btn{
     background-color: #f0c14b;
     border: 1px solid;

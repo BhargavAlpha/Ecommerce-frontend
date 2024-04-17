@@ -5,11 +5,12 @@ import styles from './ProductDetail.module.css';
 import Navbar from '../../components/navbar/Navbar';
 
 const ProductDetail = () => {
-  const email = localStorage.getItem('email');
   const { id } = useParams();
+    console.log("id",id);
+  const email = localStorage.getItem('email');
   const [product, setProduct] = useState(null);
   const [formData, setFormData] = useState({
-    productId: id,
+    productId: parseInt(id),
     productName: '',
     price: '',
     productDescription: '',
@@ -26,7 +27,7 @@ const ProductDetail = () => {
         // Set the fetched product details into both product state and formData state
         setProduct(fetchedProduct);
         setFormData({
-          productId: fetchedProduct.productId,
+          // productId: fetchedProduct.productId,
           productName: fetchedProduct.productName,
           price: fetchedProduct.price,
           productDescription: fetchedProduct.productDescription,
@@ -61,14 +62,19 @@ const ProductDetail = () => {
       formDataToSend.append('price', formData.price);
       formDataToSend.append('productDescription', formData.productDescription);
       formDataToSend.append('image', formData.image);
-      formDataToSend.append('productId', formData.productId);
+      formDataToSend.append('productId', parseInt(id) );
+
+      for (let pair of formDataToSend.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+      }
 
       const response = await axios.post(`http://localhost:3000/api/submit-request`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-
+      
+    
       console.log('Product updated:', response.data);
       alert('Product updated successfully!');
     } catch (error) {

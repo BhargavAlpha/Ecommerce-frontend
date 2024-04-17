@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
 import styles from '../submissions/Submissions.module.css';
 
 function Reviews() {
+  const navigate = useNavigate();
   const [reviews, setReviews] = useState([]);
-
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/requests');
+        const response = await axios.get('http://localhost:3000/requests');
         setReviews(response.data);
       } catch (error) {
         console.error('Error fetching reviews:', error);
@@ -17,7 +19,10 @@ function Reviews() {
     };
 
     fetchReviews();
-  }, []); // Empty dependency array to trigger fetch only once on component mount
+  }, []); 
+  const handleSubmit=(id)=>{
+    navigate(`/admin/product/${id}`);
+  }
 
   return (
     <>
@@ -35,7 +40,9 @@ function Reviews() {
             {reviews &&
               reviews.map((review) => (
                 <tr key={review._id}>
-                  <td>{review.productName}</td>
+                  <td onClick={()=>handleSubmit(review._id)}>
+                    {review.productName}
+                  </td>
                   <td>{review.productId}</td>
                   {/* Add the date field from the review object */}
                   <td>{review.status}</td>

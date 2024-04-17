@@ -15,7 +15,7 @@ const Profile = () => {
 
   const getData=async (email)=>{
     try {
-      const response = await axios.get('http://localhost:3000/profile', { email });
+      const response = await axios.get(`http://localhost:3000/profile/${email}`);
       console.log(response.data.user);
       return response.data.user;
     } catch (error) {
@@ -44,7 +44,8 @@ const Profile = () => {
       <img src={profile} alt="Banner" />
       </div>
       <div className={`${styles.comp} ${styles.name}`}>
-        {userData.username}
+        
+        {userData.username.toUpperCase()}
       </div>
       <div className={`${styles.comp} ${styles.email}`}>
       {userData.email}

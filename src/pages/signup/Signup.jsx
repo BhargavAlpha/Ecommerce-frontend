@@ -3,20 +3,28 @@ import axios from 'axios';
 import styles from './Signup.module.css';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 const Signup = () => {
   const navigate = useNavigate();
-  
-  const showToast = (message, type) => {
-    toast(message, { type });
-  };
-
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
-    userType: '' 
+    userType: ''
   });
+
+  const showToastSuccessMessage = () => {
+    toast.success("Registered Successfully!", {
+      
+    });
+  };
+  const showToastFailureMessage = (message = "Fill all fields properly") => {
+    toast.error(message, {
+      
+    });
+  };
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,25 +33,31 @@ const Signup = () => {
 
   const handleSubmit = async () => {
     try {
+      // Basic form validation (you can add more checks)
+      if (!formData.username || !formData.email || !formData.password || !formData.userType) {
+        showToast('Please fill out all fields.', 'error');
+        return;
+      }
+  
       const response = await axios.post('http://localhost:3000/register', formData);
+      
       if (response.data.name) {
-        localStorage.setItem("email", formData.email);
-        localStorage.setItem("role", formData.userType);
-        showToast("Registered Successfully!", "success");
-        navigate("/dashboard");
+        navigate('/login');
+        showToastSuccessMessage();
       } else if (response.data.error) {
-        if (response.data.error.includes("User already exists")) {
-          showToast("User already exists!", "error");
+        if (response.data.error.includes('User already exists')) {
+          showToastFailureMessage('User already exists!');
         } else {
-          showToast(response.data.error, "error");
+          showToastFailureMessage(response.data.error);
         }
       } else {
-        showToast("An error occurred. Please try again later.", "error");
+        showToastFailureMessage('An error occurred. Please try again later.');
       }
     } catch (error) {
-      showToast(error.message, "error");
+      showToastFailureMessage(error.message);
     }
   };
+  
 
   return (
     <div className={styles.container}>
@@ -91,8 +105,12 @@ const Signup = () => {
           />
           <span>Admin</span>
         </div>
-        <button onClick={handleSubmit} className={styles.btn}>Sign Up</button>
-        <p>Already have an Account? <a onClick={() => navigate('/login')}>Login</a></p>
+        <button onClick={handleSubmit} className={styles.btn}>
+          Sign Up
+        </button>
+        <p>
+          Already have an Account? <a onClick={() => navigate('/login')}>Login</a>
+        </p>
       </div>
     </div>
   );
