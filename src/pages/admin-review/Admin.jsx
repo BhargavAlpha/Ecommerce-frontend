@@ -5,6 +5,7 @@ import styles from './Admin.module.css';
 import Navbar from '../../components/navbar/Navbar';
 
 const ProductAdminDetail = () => {
+  const url=import.meta.env.VITE_BACKEND_URL
   const { id } = useParams();
   const [originalProduct, setOriginalProduct] = useState(null);
   const [submissionData, setSubmissionData] = useState(null);
@@ -13,11 +14,11 @@ const ProductAdminDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const submissionResponse = await axios.get(`http://localhost:3000/reviews/${id}`);
+        const submissionResponse = await axios.get(`${url}/reviews/${id}`);
         setSubmissionData(submissionResponse.data);
 
         const productId = submissionResponse.data.productId;
-        const productResponse = await axios.get(`http://localhost:3000/product/${productId}`);
+        const productResponse = await axios.get(`${url}/product/${productId}`);
         setOriginalProduct(productResponse.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -33,10 +34,10 @@ const ProductAdminDetail = () => {
 
   const handleApprove = async () => {
     try {
-      await axios.put(`http://localhost:3000/reviews/${id}`, { status: 'approved' });
+      await axios.put(`${url}/reviews/${id}`, { status: 'approved' });
       const updatedFields = getUpdatedFields();
       if (Object.keys(updatedFields).length > 0) {
-        const response = await axios.put(`http://localhost:3000/product/${originalProduct._id}`, updatedFields);
+        const response = await axios.put(`${url}/product/${originalProduct._id}`, updatedFields);
         console.log('Approve response:', response.data);
       } else {
         console.log('No changes to update.');
@@ -48,7 +49,7 @@ const ProductAdminDetail = () => {
   
   const handleReject = async () => {
     try {
-      await axios.put(`http://localhost:3000/reviews/${id}`, { status: 'rejected' });
+      await axios.put(`${url}/reviews/${id}`, { status: 'rejected' });
     } catch (error) {
       console.error('Error rejecting product:', error);
     }

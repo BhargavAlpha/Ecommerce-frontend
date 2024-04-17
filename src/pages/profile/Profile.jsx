@@ -3,7 +3,9 @@ import styles from "./Profile.module.css"; // Import styles from your CSS module
 import profile from "../../assets/profile.svg";
 import axios from "axios";
 import { useEffect } from "react";
+import Navbar from "../../components/navbar/Navbar";
 const Profile = () => {
+  const url=import.meta.env.VITE_BACKEND_URL
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -15,7 +17,7 @@ const Profile = () => {
 
   const getData=async (email)=>{
     try {
-      const response = await axios.get(`http://localhost:3000/profile/${email}`);
+      const response = await axios.get(`${url}/profile/${email}`);
       console.log(response.data.user);
       return response.data.user;
     } catch (error) {
@@ -38,7 +40,11 @@ const Profile = () => {
     };
 
   return (
+    <div>
+      <Navbar />
+    
     <div className={styles.container}>
+      
     <div className={styles.card}>
       <div className={styles.comp}>
       <img src={profile} alt="Banner" />
@@ -63,6 +69,7 @@ const Profile = () => {
        Rejected Requests : {userData.requests_rejected}
       </div>
       
+    </div>
     </div>
     </div>
   );

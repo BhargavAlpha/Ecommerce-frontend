@@ -4,13 +4,14 @@ import styles from "./Submissions.module.css";
 import axios from "axios";
 
 const Submissions = () => {
+  const url=import.meta.env.VITE_BACKEND_URL
   const [submissions, setSubmissions] = useState([]);
   const email = localStorage.getItem('email');
 
   useEffect(() => {
     async function fetchSubmissions() {
       try {
-        const response = await axios.get(`http://localhost:3000/api/my-submissions?email=${email}`);
+        const response = await axios.get(`${url}/api/my-submissions?email=${email}`);
         setSubmissions(response.data); 
       } catch (error) {
         console.log(error);

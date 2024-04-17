@@ -4,12 +4,14 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const url=import.meta.env.VITE_BACKEND_URL;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate=useNavigate();
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/login', { email, password });
+      console.log(import.meta.env.VITE_BACKEND_URL);
+      const response = await axios.post(`${url}/login`, { email, password });
       console.log('User logged in:', response.data);
 
       // Assuming response.data contains userId and isAdmin information

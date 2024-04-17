@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 
 const Signup = () => {
+  const url = import.meta.env.VITE_BACKEND_URL
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
@@ -39,7 +40,7 @@ const Signup = () => {
         return;
       }
   
-      const response = await axios.post('http://localhost:3000/register', formData);
+      const response = await axios.post(`${url}/register`, formData);
       
       if (response.data.name) {
         navigate('/login');

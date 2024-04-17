@@ -5,6 +5,7 @@ import styles from './ProductDetail.module.css';
 import Navbar from '../../components/navbar/Navbar';
 
 const ProductDetail = () => {
+  const url=import.meta.env.VITE_BACKEND_URL
   const { id } = useParams();
     console.log("id",id);
   const email = localStorage.getItem('email');
@@ -21,7 +22,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/product/${id}`);
+        const response = await axios.get(`${url}/product/${id}`);
         const fetchedProduct = response.data;
 
         // Set the fetched product details into both product state and formData state
@@ -68,7 +69,7 @@ const ProductDetail = () => {
         console.log(pair[0] + ', ' + pair[1]);
       }
 
-      const response = await axios.post(`http://localhost:3000/api/submit-request`, formDataToSend, {
+      const response = await axios.post(`${url}/api/submit-request`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

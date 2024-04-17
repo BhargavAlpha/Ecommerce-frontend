@@ -6,12 +6,13 @@ import Navbar from '../../components/navbar/Navbar';
 import styles from '../submissions/Submissions.module.css';
 
 function Reviews() {
+  const url = import.meta.env.VITE_BACKEND_URL
   const navigate = useNavigate();
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/requests');
+        const response = await axios.get(`${url}/requests`);
         setReviews(response.data);
       } catch (error) {
         console.error('Error fetching reviews:', error);

@@ -6,6 +6,7 @@ import Navbar from '../../components/navbar/Navbar';
 import { useNavigate } from "react-router-dom";
 
     const Dashboard = () => {
+      const url=import.meta.env.VITE_BACKEND_URL
       const navigate = useNavigate();
       const [products, setProducts] = useState([]);
 
@@ -15,7 +16,7 @@ import { useNavigate } from "react-router-dom";
       };
 
       useEffect(() => {
-        axios.get('http://localhost:3000/dashboard/')
+        axios.get(`${url}/dashboard/`)
           .then(response => setProducts(response.data))
           .catch(error => console.error('Error fetching data:', error));
       }, []);
