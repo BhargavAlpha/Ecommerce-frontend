@@ -25,14 +25,12 @@ const ProductDetail = () => {
         const response = await axios.get(`${url}/product/${id}`);
         const fetchedProduct = response.data;
 
-        // Set the fetched product details into both product state and formData state
         setProduct(fetchedProduct);
         setFormData({
-          // productId: fetchedProduct.productId,
           productName: fetchedProduct.productName,
           price: fetchedProduct.price,
           productDescription: fetchedProduct.productDescription,
-          image: null, // You might want to set this based on fetchedProduct.image if needed
+          image: null, 
           email: email
         });
       } catch (error) {

@@ -34,7 +34,7 @@ const Signup = () => {
 
   const handleSubmit = async () => {
     try {
-      // Basic form validation (you can add more checks)
+     
       if (!formData.username || !formData.email || !formData.password || !formData.userType) {
         showToast('Please fill out all fields.', 'error');
         return;

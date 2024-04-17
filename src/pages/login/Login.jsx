@@ -14,7 +14,6 @@ const Login = () => {
       const response = await axios.post(`${url}/login`, { email, password });
       console.log('User logged in:', response.data);
 
-      // Assuming response.data contains userId and isAdmin information
       localStorage.setItem('email',response.data.email);
       localStorage.setItem('role', response.data.isAdmin ? 'admin' : 'teamMember');
       localStorage.setItem('token', response.data.token);

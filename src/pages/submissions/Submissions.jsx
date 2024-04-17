@@ -29,7 +29,7 @@ const Submissions = () => {
       case 'approved':
         return { color: 'green' };
       default:
-        return {}; // Default color
+        return {}; 
     }
   };
 

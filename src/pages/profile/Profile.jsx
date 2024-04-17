@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./Profile.module.css"; // Import styles from your CSS module
+import styles from "./Profile.module.css"; 
 import profile from "../../assets/profile.svg";
 import axios from "axios";
 import { useEffect } from "react";

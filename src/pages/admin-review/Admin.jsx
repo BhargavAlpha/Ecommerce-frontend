@@ -23,7 +23,7 @@ const ProductAdminDetail = () => {
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
-        setLoading(false); // Update loading state regardless of success or failure
+        setLoading(false); 
       }
     };
 

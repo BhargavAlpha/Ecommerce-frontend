@@ -30,7 +30,7 @@ import { useNavigate } from "react-router-dom";
                 <Card 
                   key={product.id} 
                   product={product} 
-                  onClick={() => handleSingleProductClick(product.id)} // Pass onClick event handler correctly
+                  onClick={() => handleSingleProductClick(product.id)} 
                 />
               ))}
             </div>
